@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Read verified traveler reviews and explore our community travel photo gallery from destinations around the world with Travel World." />
+  <title>Traveler Reviews &amp; Gallery | Travel World</title>
+  <style>
+    :root {
+      --primary: #0f6e8c;
+      --primary-dark: #0a4f66;
+      --accent: #f59e0b;
+      --accent-soft: #fef3c7;
+      --bg: #f7fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1140px, 92%);
+      margin: 0 auto;
+    }
+
+    /* 1. Header & Navigation Bar */
+    .site-header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      display: inline-grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), #14b8a6);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      list-style: none;
+      gap: 0.5rem;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: #eef6f9;
+      color: var(--primary);
+    }
+
+    .nav-links a.active {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* Page Hero Banner */
+    .page-hero {
+      background: linear-gradient(135deg, #0a4f66 0%, #0f6e8c 55%, #14919b 100%);
+      color: #ffffff;
+      padding: 4rem 0 3.5rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.16);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .page-hero p {
+      max-width: 640px;
+      margin: 0 auto 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.05rem;
+    }
+
+    .rating-summary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 0.65rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+    }
+
+    .rating-summary .stars {
+      color: #fbbf24;
+      letter-spacing: 0.08em;
+    }
+
+    /* Section Headings */
+    .section {
+      padding: 4rem 0;
+    }
+
+    .section-alt {
+      background-color: #ffffff;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.15rem);
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--muted);
+    }
+
+    /* 2 & 3. Traveler Reviews Cards */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .review-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .review-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #14b8a6);
+      color: #ffffff;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .reviewer-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .reviewer-trip {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .star-rating {
+      color: var(--accent);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      background-color: var(--accent-soft);
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .review-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.35rem;
+    }
+
+    .review-text {
+      color: #334155;
+      font-size: 0.96rem;
+    }
+
+    .review-date {
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 0.75rem;
+    }
+
+    /* 4. Travel Photo Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 1.25rem;
+    }
+
+    .gallery-item.is-hidden {
+      display: none;
+    }
+
+    .gallery-item.is-visible {
+      animation: galleryFadeIn 0.3s ease;
+    }
+
+    @keyframes galleryFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gallery-item {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      padding: 0.9rem 1rem;
+    }
+
+    .gallery-caption strong {
+      display: block;
+      color: var(--primary-dark);
+      font-size: 0.98rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .gallery-caption span {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* 5. View More Photos Button */
+    .gallery-actions {
+      text-align: center;
+      margin-top: 2.25rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      min-height: 44px;
+      padding: 0.85rem 1.9rem;
+      border: none;
+      border-radius: 999px;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 8px 18px rgba(15, 110, 140, 0.25);
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* 6. Website Footer */
+    .site-footer {
+      background-color: #0f172a;
+      color: #cbd5e1;
+      padding: 3.25rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-col h3 {
+      color: #ffffff;
+      font-size: 1.05rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .footer-col p,
+    .footer-col li {
+      font-size: 0.92rem;
+      color: #94a3b8;
+      margin-bottom: 0.45rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1.25rem;
+      font-size: 0.86rem;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 720px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 1. Website Header & Navigation Bar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="../index.html" class="brand">
+        <span class="brand-badge" aria-hidden="true">TW</span>
+        <span>Travel World</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <!-- Update links below once other group members finalize their page filenames -->
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#packages">Tour Packages</a></li>
+          <li><a href="traveler-reviews.html" class="active" aria-current="page">Reviews &amp; Gallery</a></li>
+          <li><a href="faqs.html">FAQs</a></li>
+          <li><a href="about-contact.html">About &amp; Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Intro Banner -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="hero-eyebrow">Verified Stories &amp; Moments</span>
+        <h1>Traveler Reviews &amp; Gallery</h1>
+        <p>
+          Discover honest experiences from explorers who traveled with Travel World and browse
+          unforgettable snapshots from across the globe.
+        </p>
+        <div class="rating-summary" aria-label="Average customer rating 4.9 out of 5 stars">
+          <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <strong>4.9 / 5.0</strong>
+          <span>Based on 1,240+ traveler reviews</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 & 3. Traveler Reviews Heading & Customer Review Cards -->
+    <section class="section" aria-labelledby="reviews-heading">
+      <div class="container">
+        <header class="section-header">
+          <h2 id="reviews-heading">Traveler Reviews</h2>
+          <p>Real feedback from travelers who joined our guided tours and custom itineraries.</p>
+        </header>
+
+        <div class="reviews-grid">
+          <article class="review-card">
+            <div>
+              <div class="review-top">
+                <div class="reviewer-info">
+                  <div class="avatar" aria-hidden="true">SC</div>
+                  <div>
+                    <h3 class="reviewer-name">Sophia Carter</h3>
+                    <p class="reviewer-trip">Santorini Island Escape</p>
+                  </div>
+                </div>
+                <span class="star-rating" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <h4 class="review-title">Effortless planning and magical sunsets</h4>
+              <p class="review-text">
+                Every transfer, boutique hotel, and sunset sailing excursion ran right on schedule.
+                Our local guide knew hidden viewpoints away from the crowds.
+              </p>
+            </div>
+            <p class="review-date">Traveled in September 2026</p>
+          </article>
+
+          <article class="review-card">
+            <div>
+              <div class="review-top">
+                <div class="reviewer-info">
+                  <div class="avatar" aria-hidden="true">DK</div>
+                  <div>
+                    <h3 class="reviewer-name">Daniel Kim</h3>
+                    <p class="reviewer-trip">Kyoto Cultural Trail</p>
+                  </div>
+                </div>
+                <span class="star-rating" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <h4 class="review-title">Unforgettable cultural immersion</h4>
+              <p class="review-text">
+                From early-morning temple walks to the private tea ceremony in Gion, Travel World
+                curated moments we could never have arranged on our own.
+              </p>
+            </div>
+            <p class="review-date">Traveled in October 2026</p>
+          </article>
+
+          <article class="review-card">
+            <div>
+              <div class="review-top">
+                <div class="reviewer-info">
+                  <div class="avatar" aria-hidden="true">AR</div>
+                  <div>
+                    <h3 class="reviewer-name">Amina Rahman</h3>
+                    <p class="reviewer-trip">Swiss Alps Rail Adventure</p>
+                  </div>
+                </div>
+                <span class="star-rating" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <h4 class="review-title">Scenic train routes done right</h4>
+              <p class="review-text">
+                The panoramic train passes and mountain lodge stays were breathtaking. Customer
+                support checked in midway through our trip to make sure everything was smooth.
+              </p>
+            </div>
+            <p class="review-date">Traveled in August 2026</p>
+          </article>
+
+          <article class="review-card">
+            <div>
+              <div class="review-top">
+                <div class="reviewer-info">
+                  <div class="avatar" aria-hidden="true">LM</div>
+                  <div>
+                    <h3 class="reviewer-name">Lucas Martinez</h3>
+                    <p class="reviewer-trip">Bali Wellness &amp; Coast</p>
+                  </div>
+                </div>
+                <span class="star-rating" aria-label="4 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+              </div>
+              <h4 class="review-title">Great balance of adventure and rest</h4>
+              <p class="review-text">
+                Loved the Ubud rice terrace trek and beachside villa. One rainy afternoon excursion
+                was rescheduled quickly with a thoughtful indoor cooking class instead.
+              </p>
+            </div>
+            <p class="review-date">Traveled in July 2026</p>
+          </article>
+
+          <article class="review-card">
+            <div>
+              <div class="review-top">
+                <div class="reviewer-info">
+                  <div class="avatar" aria-hidden="true">EW</div>
+                  <div>
+                    <h3 class="reviewer-name">Emily Watson</h3>
+                    <p class="reviewer-trip">Serengeti Safari Expedition</p>
+                  </div>
+                </div>
+                <span class="star-rating" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <h4 class="review-title">Once-in-a-lifetime wildlife sightings</h4>
+              <p class="review-text">
+                Our safari naturalist was extraordinary. Comfortable eco-lodges, safe vehicles, and
+                sunrise drives made this our favorite trip ever.
+              </p>
+            </div>
+            <p class="review-date">Traveled in June 2026</p>
+          </article>
+
+          <article class="review-card">
+            <div>
+              <div class="review-top">
+                <div class="reviewer-info">
+                  <div class="avatar" aria-hidden="true">NP</div>
+                  <div>
+                    <h3 class="reviewer-name">Noah Patel</h3>
+                    <p class="reviewer-trip">Patagonia Peaks Trek</p>
+                  </div>
+                </div>
+                <span class="star-rating" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <h4 class="review-title">Well-paced hiking itinerary</h4>
+              <p class="review-text">
+                Clear gear checklists before departure and knowledgeable trail guides made every
+                day on the mountain rewarding and stress-free.
+              </p>
+            </div>
+            <p class="review-date">Traveled in November 2026</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 & 5. Travel Photo Gallery & View More Photos Button -->
+    <section id="gallery" class="section section-alt" aria-labelledby="gallery-heading">
+      <div class="container">
+        <header class="section-header">
+          <h2 id="gallery-heading">Travel Photo Gallery</h2>
+          <p>Highlights captured by our travelers across mountains, coastlines, and historic cities.</p>
+        </header>
+
+        <div id="gallery-grid" class="gallery-grid">
+          <figure class="gallery-item">
+            <img
+              src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><defs><linearGradient id='g1' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%230ea5e9'/><stop offset='65%25' stop-color='%23bae6fd'/><stop offset='100%25' stop-color='%230369a1'/></linearGradient></defs><rect width='600' height='400' fill='url(%23g1)'/><circle cx='470' cy='95' r='45' fill='%23fde047'/><path d='M0 280 Q150 250 300 280 T600 270 L600 400 L0 400 Z' fill='%230284c7'/><rect x='90' y='210' width='90' height='70' fill='%23ffffff'/><path d='M90 210 Q135 170 180 210 Z' fill='%231d4ed8'/><rect x='200' y='225' width='75' height='55' fill='%23ffffff'/><path d='M200 225 Q237 195 275 225 Z' fill='%232563eb'/></svg>"
+              alt="Blue-domed whitewashed buildings overlooking the sea in Santorini, Greece"
+            />
+            <figcaption class="gallery-caption">
+              <strong>Santorini, Greece</strong>
+              <span>Photo by Sophia Carter</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item">
+            <img
+              src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><defs><linearGradient id='g2' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%23f97316'/><stop offset='60%25' stop-color='%23fdba74'/><stop offset='100%25' stop-color='%237c2d12'/></linearGradient></defs><rect width='600' height='400' fill='url(%23g2)'/><circle cx='300' cy='150' r='55' fill='%23fef08a'/><path d='M0 300 L170 210 L320 290 L460 200 L600 295 L600 400 L0 400 Z' fill='%23431407'/><rect x='255' y='190' width='18' height='130' fill='%23dc2626'/><rect x='330' y='190' width='18' height='130' fill='%23dc2626'/><rect x='235' y='185' width='135' height='18' rx='4' fill='%23b91c1c'/><rect x='245' y='215' width='115' height='12' fill='%23dc2626'/></svg>"
+              alt="Traditional crimson torii gate framed against a warm sunset in Kyoto, Japan"
+            />
+            <figcaption class="gallery-caption">
+              <strong>Kyoto, Japan</strong>
+              <span>Photo by Daniel Kim</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item">
+            <img
+              src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><defs><linearGradient id='g3' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%2338bdf8'/><stop offset='100%25' stop-color='%23e0f2fe'/></linearGradient></defs><rect width='600' height='400' fill='url(%23g3)'/><path d='M0 310 L140 140 L260 270 L390 110 L540 280 L600 240 L600 400 L0 400 Z' fill='%23475569'/><path d='M140 140 L105 190 L140 175 L175 192 Z' fill='%23ffffff'/><path d='M390 110 L345 175 L392 155 L438 178 Z' fill='%23ffffff'/><path d='M0 320 Q300 295 600 320 L600 400 L0 400 Z' fill='%230f766e'/></svg>"
+              alt="Snow-capped Alpine mountain peaks reflecting over an emerald lake in Switzerland"
+            />
+            <figcaption class="gallery-caption">
+              <strong>Zermatt, Switzerland</strong>
+              <span>Photo by Amina Rahman</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item gallery-extra is-hidden">
+            <img
+              src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><defs><linearGradient id='g4' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%2306b6d4'/><stop offset='70%25' stop-color='%2367e8f9'/><stop offset='100%25' stop-color='%23fef3c7'/></linearGradient></defs><rect width='600' height='400' fill='url(%23g4)'/><circle cx='120' cy='90' r='38' fill='%23fde047'/><path d='M0 245 Q180 230 360 250 T600 245 L600 325 L0 325 Z' fill='%230891b2'/><path d='M0 315 Q280 295 600 325 L600 400 L0 400 Z' fill='%23fcd34d'/><path d='M450 325 Q460 230 485 180' stroke='%2378350f' stroke-width='12' fill='none'/><path d='M485 180 Q440 165 420 190 M485 180 Q530 160 555 185 M485 180 Q480 140 505 130' stroke='%2315803d' stroke-width='10' stroke-linecap='round' fill='none'/></svg>"
+              alt="Turquoise tropical waters, golden sand, and swaying palm tree in Bali, Indonesia"
+            />
+            <figcaption class="gallery-caption">
+              <strong>Bali, Indonesia</strong>
+              <span>Photo by Lucas Martinez</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item gallery-extra is-hidden">
+            <img
+              src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><defs><linearGradient id='g5' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%23ea580c'/><stop offset='55%25' stop-color='%23facc15'/><stop offset='100%25' stop-color='%2392400e'/></linearGradient></defs><rect width='600' height='400' fill='url(%23g5)'/><circle cx='300' cy='230' r='68' fill='%23fef9c3'/><rect x='0' y='285' width='600' height='115' fill='%23713f12'/><path d='M160 285 L160 205 M160 215 Q125 190 95 200 M160 215 Q195 190 225 200' stroke='%23292524' stroke-width='8' stroke-linecap='round' fill='none'/><ellipse cx='160' cy='192' rx='85' ry='22' fill='%23292524'/></svg>"
+              alt="Acacia tree silhouette against a golden savanna sunrise in the Serengeti, Tanzania"
+            />
+            <figcaption class="gallery-caption">
+              <strong>Serengeti, Tanzania</strong>
+              <span>Photo by Emily Watson</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item gallery-extra is-hidden">
+            <img
+              src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><defs><linearGradient id='g6' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%231e3a8a'/><stop offset='65%25' stop-color='%2360a5fa'/><stop offset='100%25' stop-color='%23bfdbfe'/></linearGradient></defs><rect width='600' height='400' fill='url(%23g6)'/><path d='M40 310 L170 135 L250 225 L340 95 L440 230 L560 155 L600 310 Z' fill='%23334155'/><path d='M340 95 L312 145 L340 132 L368 148 Z' fill='%23f8fafc'/><rect x='0' y='305' width='600' height='95' fill='%230f172a'/></svg>"
+              alt="Granite mountain spires under crisp twilight skies in Patagonia, Chile"
+            />
+            <figcaption class="gallery-caption">
+              <strong>Patagonia, Chile</strong>
+              <span>Photo by Noah Patel</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="gallery-actions">
+          <button
+            type="button"
+            id="view-more-photos-btn"
+            class="btn-primary"
+            aria-expanded="false"
+            aria-controls="gallery-grid"
+          >
+            View More Photos
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 6. Website Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Travel World</h3>
+          <p>
+            Curated adventures, authentic local guides, and unforgettable journeys across six
+            continents.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="traveler-reviews.html">Traveler Reviews &amp; Gallery</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="about-contact.html">About &amp; Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Top Destinations</h3>
+          <ul>
+            <li>Santorini, Greece</li>
+            <li>Kyoto, Japan</li>
+            <li>Zermatt, Switzerland</li>
+            <li>Serengeti, Tanzania</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <p>Email: hello@travelworld.example</p>
+          <p>Phone: +1 (555) 234-5678</p>
+          <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Travel World. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleButton = document.getElementById("view-more-photos-btn");
+      const extraPhotos = document.querySelectorAll(".gallery-extra");
+
+      if (!toggleButton || extraPhotos.length === 0) {
+        return;
+      }
+
+      let isExpanded = false;
+
+      toggleButton.addEventListener("click", function () {
+        isExpanded = !isExpanded;
+
+        extraPhotos.forEach(function (photo) {
+          photo.classList.toggle("is-hidden", !isExpanded);
+          photo.classList.toggle("is-visible", isExpanded);
+        });
+
+        toggleButton.textContent = isExpanded ? "Show Less" : "View More Photos";
+        toggleButton.setAttribute("aria-expanded", String(isExpanded));
+      });
+    });
+  </script>
+</body>
+</html>
