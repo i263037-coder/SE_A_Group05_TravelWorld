@@ -1,1 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Find answers to frequently asked questions about booking trips, payments, cancellations, visas, and guided tours with Travel World." />
+  <title>FAQs | Travel World</title>
+  <style>
+    :root {
+      --primary: #0f6e8c;
+      --primary-dark: #0a4f66;
+      --accent: #f59e0b;
+      --accent-soft: #fef3c7;
+      --bg: #f7fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius: 14px;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1140px, 92%);
+      margin: 0 auto;
+    }
+
+    /* 1. Header & Navigation Bar (Matched with Traveler Reviews) */
+    .site-header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      display: inline-grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), #14b8a6);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      list-style: none;
+      gap: 0.5rem;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: #eef6f9;
+      color: var(--primary);
+    }
+
+    .nav-links a.active {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* 2. FAQ Hero Banner */
+    .page-hero {
+      background: linear-gradient(135deg, #0a4f66 0%, #0f6e8c 55%, #14919b 100%);
+      color: #ffffff;
+      padding: 4rem 0 3.5rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.16);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .page-hero p {
+      max-width: 640px;
+      margin: 0 auto 1.75rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.05rem;
+    }
+
+    .topic-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.65rem;
+    }
+
+    .topic-pills a {
+      display: inline-block;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .topic-pills a:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    /* 3 & 4. FAQ Content Sections */
+    .section {
+      padding: 4rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 660px;
+      margin: 0 auto 2.75rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.15rem);
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--muted);
+    }
+
+    .faq-categories {
+      display: grid;
+      gap: 2.5rem;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .faq-category {
+      scroll-margin-top: 90px;
+    }
+
+    .category-title {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .category-badge {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background-color: #e0f2fe;
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .faq-item[open] {
+      border-color: #bae6fd;
+      box-shadow: var(--shadow);
+    }
+
+    .faq-question {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.15rem 1.35rem;
+      font-size: 1.04rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .faq-question::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-question:hover {
+      color: var(--primary);
+    }
+
+    .faq-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #eef6f9;
+      color: var(--primary);
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .faq-item[open] .faq-icon {
+      background-color: var(--primary);
+      color: #ffffff;
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.35rem 1.25rem;
+      color: #334155;
+      font-size: 0.96rem;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 0.95rem;
+    }
+
+    /* Support Callout */
+    .support-cta {
+      margin-top: 3.5rem;
+      background: linear-gradient(135deg, #eef6f9 0%, #ffffff 100%);
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .support-cta h3 {
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .support-cta p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      min-height: 44px;
+      padding: 0.8rem 1.75rem;
+      border-radius: 999px;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-size: 0.98rem;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(15, 110, 140, 0.25);
+      transition: background-color 0.2s ease, transform 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* 5. Website Footer (Consistent with Traveler Reviews) */
+    .site-footer {
+      background-color: #0f172a;
+      color: #cbd5e1;
+      padding: 3.25rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-col h3 {
+      color: #ffffff;
+      font-size: 1.05rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .footer-col p,
+    .footer-col li {
+      font-size: 0.92rem;
+      color: #94a3b8;
+      margin-bottom: 0.45rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1.25rem;
+      font-size: 0.86rem;
+      color: #94a3b8;
+    }
+
+    /* 6. Responsive Adjustments */
+    @media (max-width: 720px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .page-hero {
+        padding: 3rem 0 2.75rem;
+      }
+
+      .section {
+        padding: 3rem 0;
+      }
+
+      .faq-question {
+        padding: 1rem 1.1rem;
+        font-size: 0.98rem;
+      }
+
+      .faq-answer {
+        padding: 0.85rem 1.1rem 1.1rem;
+      }
+
+      .support-cta {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 1. Website Header & Navigation Bar -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="../index.html" class="brand">
+        <span class="brand-badge" aria-hidden="true">TW</span>
+        <span>Travel World</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <!-- Update links below once other group members finalize their page filenames -->
+          <li><a href="../index.html#destinations">Destinations</a></li>
+          <li><a href="../index.html#packages">Tour Packages</a></li>
+          <li><a href="traveler-reviews.html">Reviews &amp; Gallery</a></li>
+          <li><a href="faqs.html" class="active" aria-current="page">FAQs</a></li>
+          <li><a href="about-contact.html">About &amp; Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. Clear FAQ Heading & Quick Topic Navigation -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="hero-eyebrow">Help Center &amp; Travel Guide</span>
+        <h1>Frequently Asked Questions</h1>
+        <p>
+          Everything you need to know about booking your trip, flexible changes, travel documents,
+          and what to expect on your journey with Travel World.
+        </p>
+        <div class="topic-pills" aria-label="FAQ Categories">
+          <a href="#booking-payments">Booking &amp; Payments</a>
+          <a href="#changes-cancellations">Changes &amp; Cancellations</a>
+          <a href="#travel-prep">Travel Prep &amp; Visas</a>
+          <a href="#on-the-trip">During Your Trip</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 & 4. Organized FAQ Categories with Questions & Answers -->
+    <section class="section" aria-labelledby="faq-heading">
+      <div class="container">
+        <header class="section-header">
+          <h2 id="faq-heading">Traveling &amp; Booking FAQs</h2>
+          <p>Browse our most common traveler questions below. Click any question to collapse or expand its details.</p>
+        </header>
+
+        <div class="faq-categories">
+          <!-- Category 1: Booking & Payments -->
+          <div id="booking-payments" class="faq-category">
+            <h3 class="category-title">
+              <span class="category-badge" aria-hidden="true">1</span>
+              <span>Booking &amp; Payments</span>
+            </h3>
+
+            <div class="faq-list">
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>How do I book a trip or tour package with Travel World?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  Choose your preferred destination or package, select your travel dates and group
+                  size, and complete your reservation online or through our travel specialists on
+                  the About &amp; Contact page. You will receive an instant confirmation email with
+                  your itinerary summary.
+                </p>
+              </details>
+
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>Do I have to pay the full amount upfront, or can I pay a deposit?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  You can secure most trips booked more than 45 days in advance with a 20% deposit.
+                  The remaining balance is due 30 days prior to departure, and we accept major
+                  credit cards, debit cards, and bank transfers.
+                </p>
+              </details>
+
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>Are international flights included in tour package prices?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  Most Travel World packages cover accommodations, local transportation, guided
+                  activities, and select meals so travelers can book flights from any city.
+                  Optional flight add-ons are available upon request when finalizing your booking.
+                </p>
+              </details>
+            </div>
+          </div>
+
+          <!-- Category 2: Changes & Cancellations -->
+          <div id="changes-cancellations" class="faq-category">
+            <h3 class="category-title">
+              <span class="category-badge" aria-hidden="true">2</span>
+              <span>Changes &amp; Cancellations</span>
+            </h3>
+
+            <div class="faq-list">
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>What is your cancellation and refund policy?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  Cancellations made at least 30 days before departure qualify for a full refund
+                  minus any non-refundable partner fees. Cancellations between 15 and 29 days prior
+                  receive a 50% refund or a 100% travel credit toward a future trip.
+                </p>
+              </details>
+
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>Can I change my travel dates or customize my itinerary after booking?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  Yes! Date changes and itinerary adjustments are free of charge up to 30 days
+                  before your trip starts, subject to hotel and tour availability. Simply reach out
+                  to our support team with your booking reference number.
+                </p>
+              </details>
+            </div>
+          </div>
+
+          <!-- Category 3: Travel Prep & Visas -->
+          <div id="travel-prep" class="faq-category">
+            <h3 class="category-title">
+              <span class="category-badge" aria-hidden="true">3</span>
+              <span>Travel Prep, Passports &amp; Insurance</span>
+            </h3>
+
+            <div class="faq-list">
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>What passport and visa requirements should I check before traveling?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  Your passport should generally be valid for at least 6 months beyond your planned
+                  return date. Because entry and visa rules vary by nationality and destination, we
+                  send a destination checklist after booking and recommend verifying requirements with
+                  your local embassy.
+                </p>
+              </details>
+
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>Is travel insurance required for Travel World trips?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  Comprehensive travel insurance covering medical emergencies, trip delays, and
+                  cancellations is strongly recommended for all travelers and required for adventure
+                  trekking or safari expeditions.
+                </p>
+              </details>
+            </div>
+          </div>
+
+          <!-- Category 4: During Your Trip -->
+          <div id="on-the-trip" class="faq-category">
+            <h3 class="category-title">
+              <span class="category-badge" aria-hidden="true">4</span>
+              <span>During Your Trip</span>
+            </h3>
+
+            <div class="faq-list">
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>Are airport transfers and local guides included?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  Yes, scheduled arrival and departure airport transfers are included for every
+                  multi-day package, along with certified English-speaking local guides for all
+                  listed excursions.
+                </p>
+              </details>
+
+              <details class="faq-item" open>
+                <summary class="faq-question">
+                  <span>How can I get help if an issue comes up while I am traveling?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="faq-answer">
+                  Every traveler receives access to our 24/7 emergency assistance hotline and
+                  dedicated trip coordinator contact details in their pre-departure welcome packet,
+                  so help is always a quick call or message away.
+                </p>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <!-- Call to Action linking to Member 5's About & Contact Page -->
+        <div class="support-cta">
+          <div>
+            <h3>Still have a question about your upcoming trip?</h3>
+            <p>Our travel specialists are happy to help you plan the perfect itinerary.</p>
+          </div>
+          <a href="about-contact.html" class="btn-primary">Contact Our Team</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 5. Website Footer (Consistent with Traveler Reviews) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Travel World</h3>
+          <p>
+            Curated adventures, authentic local guides, and unforgettable journeys across six
+            continents.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="traveler-reviews.html">Traveler Reviews &amp; Gallery</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="about-contact.html">About &amp; Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Top Destinations</h3>
+          <ul>
+            <li>Santorini, Greece</li>
+            <li>Kyoto, Japan</li>
+            <li>Zermatt, Switzerland</li>
+            <li>Serengeti, Tanzania</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <p>Email: hello@travelworld.example</p>
+          <p>Phone: +1 (555) 234-5678</p>
+          <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Travel World. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
